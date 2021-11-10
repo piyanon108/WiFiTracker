@@ -18,7 +18,8 @@ SOURCES += \
         GetUSBWiFiInfo.cpp \
         MainWindow.cpp \
         Uart901.cpp \
-        main.cpp
+        main.cpp \
+        uart.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -28,7 +29,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     GetUSBWiFiInfo.h \
     MainWindow.h \
-    Uart901.h
+    Uart901.h \
+    uart.h
 
 LIBS += `pkg-config --libs --cflags libusb-1.0`
 LIBS += -lusb-1.0

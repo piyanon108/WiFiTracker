@@ -13,25 +13,23 @@
 #include<errno.h>
 #include <QDebug>
 #include <QObject>
-
+#include "uart.h"
 class Uart901 : public QObject
 {
     Q_OBJECT
 public:
     explicit Uart901(char *uartdev, int buadrate, QObject *parent = nullptr);
-    void mainloop();
+    void mainloop(char *recfile);
 signals:
     void AngleData(float Angle0,float Angle1, float Angle2,float heading);
 public slots:
 
 private:
+    UART *uart;
+    char *uartDev;
     int ret;
-    int fd;
+    unsigned char chrCnt=0;
     float a[3],w[3],Angle[3],h[3], heading;
-    int uart_open(int fd,const char *pathname);
-    int uart_close(int fd);
-    int uart_set(int fd,int nSpeed, int nBits, char nEvent, int nStop);
-    int send_data(int  fd, char *send_buffer,int length);
     int recv_data(int fd, char* recv_buffer,int length);
     void ParseData(char chr);
 };

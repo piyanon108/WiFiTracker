@@ -5,6 +5,9 @@
 #include "GetUSBWiFiInfo.h"
 #include "Uart901.h"
 #include <QDebug>
+#include <math.h>
+#include <cmath>
+#define earthRadiusKm 6371.0
 #define ACCEL_IIO_DEV           "/sys/bus/iio/devices/iio:device0/"
 #define MAGN_IIO_DEV            "/sys/bus/iio/devices/iio:device2/"
 #define ACCEL_IIO_NAME          "lsm303dlhc_accel"
@@ -41,6 +44,13 @@ private:
     static void* ThreadPitchRollYaw2( void* pTr );
     typedef void * (*THREADFUNC3)(void *);
     pthread_t idPitchRollYawThread2;
+
+
+    double deg2rad(double deg);
+    double rad2deg(double rad);
+    double distanceEarth(double lat1d, double lon1d, double lat2d, double lon2d);
+    double degreePitchEarth(double distance, double height);
+    double degreeYawEarth(double lat1d, double lon1d, double lat2d, double lon2d);
 };
 
 #endif // MAINWINDOW_H
